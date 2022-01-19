@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header @doSearch="search($event)" :inputValue="text"></Header>
     <Main></Main>
   </div>
 </template>
@@ -15,16 +15,20 @@ export default {
     Header,
     Main,
   },
+  data(){
+    return {
+      text: '',
+      staticApi: "https://api.themoviedb.org/3/search/movie?api_key=4148b7accd7bd65952002b841924594e&query=",
+    }
+  },
+  methods: {
+    search(value) {
+      this.text = this.staticApi + value;
+    },
+  }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "~bootstrap/scss/bootstrap";
 </style>
