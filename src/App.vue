@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header @doSearch="search($event)" :inputValue="text"></Header>
-    <Main></Main>
+    <Header @doSearch="search($event)"></Header>
+    <Main :inputHeader="movieApi"></Main>
   </div>
 </template>
 
@@ -17,13 +17,12 @@ export default {
   },
   data(){
     return {
-      text: '',
-      staticApi: "https://api.themoviedb.org/3/search/movie?api_key=4148b7accd7bd65952002b841924594e&query=",
+      movieApi: '',
     }
   },
   methods: {
     search(value) {
-      this.text = this.staticApi + value;
+      this.movieApi = value;
     },
   }
 };
