@@ -1,27 +1,30 @@
 <template>
-	<main>
-    	<ul v-if="inputHeader.movies.length > 0">
-        	<li v-for="(movie, index) in inputHeader.movies" :key="index+'movies'">
-				<div>Title: {{movie.title}}</div>
-				<div>Original title: {{movie.original_title}}</div>
-				<div>Language: <i :class="(movie.original_language == 'en') ? 'flag flag-us' : `flag flag-${movie.original_language}`"></i></div>
-				<div>Vote: {{movie.vote_average}}</div>
-			</li>
-		</ul>
+	<main class="container">
+    	<div v-if="inputHeader.movies.length > 0" class="row row-cols-5">
+        	<Card v-for="(movie, index) in inputHeader.movies" :key="index+'movies'"
+			:title="movie.title" 
+			:original="movie.original_title" 
+			:lang="movie.original_language"
+			:vote="movie.vote_average"
+			:image="`https://image.tmdb.org/t/p/w342${movie.poster_path}`">
+			</Card>
+		</div>
 		<h2 v-else>Nessun film trovato</h2>
-		<ul v-if="inputHeader.tv.length > 0">
-			<li v-for="(movie, index) in inputHeader.tv" :key="index+'tv'">
-				<div>Title: {{movie.name}}</div>
-				<div>Original title: {{movie.original_name}}</div>
-				<div>Language: <i :class="(movie.original_language == 'en') ? 'flag flag-us' : `flag flag-${movie.original_language}`"></i></div>
-				<div>Vote: {{movie.vote_average}}</div>
-			</li>
-		</ul>
+		<div v-if="inputHeader.tv.length > 0" class="row row-cols-5">
+			<Card v-for="(serie, index) in inputHeader.tv" :key="index+'tv'"
+			:title="serie.name" 
+			:original="serie.original_name" 
+			:lang="serie.original_language"
+			:vote="serie.vote_average"
+			:image="`https://image.tmdb.org/t/p/w342${serie.poster_path}`">
+			</Card>
+		</div>
 		<h2 v-else>Nessuna serie TV trovata</h2>
 	</main>
 </template>
 
 <script>
+import Card from './Card.vue'
 
 export default {
 	name: "Main",
@@ -30,10 +33,14 @@ export default {
 		return {
 
 		}
+	},
+	components: {
+		Card,
 	}
 }
 </script>
 
 <style lang="scss">
+@import "../assets/scss/style.scss";
 
 </style>
