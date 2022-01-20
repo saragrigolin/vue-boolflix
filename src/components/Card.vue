@@ -6,6 +6,10 @@
             <span>Original title: {{original}}</span>
             <span>Language: <i :class="'flag flag-' + getFlags(lang)"></i></span>
             <span>Vote: {{getVote(vote)}}</span>
+            <div class="d-flex">
+                <i v-for="(star, index) in getVote(vote)" :key="index" class="bi-star-fill"></i>
+                <i v-for="(star, index) in (5 - getVote(vote))" :key="index" class="bi-star"></i>
+            </div>
         </div>
         
     </div>
@@ -39,8 +43,10 @@ export default {
             }
         },
         getVote(vote){
-            let finalVote = vote / 2;
-            return finalVote.toFixed(0);
+            let finalVote = parseFloat(vote) / 2;
+            console.log(Math.round(finalVote));
+            return Math.round(finalVote);
+            // return finalVote.toFixed(0);
         }
     }
 }
@@ -49,6 +55,7 @@ export default {
 
 <style lang="scss">
 @import "../assets/scss/style.scss";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
 .col {
     padding: 0.5em 1em;
     .item-card {
@@ -63,6 +70,7 @@ export default {
         span {
             text-align: center;
         }
+
 }
 }
 
