@@ -1,6 +1,6 @@
 <template>
-	<header>
-		<div class="search">
+	<header class="my-3">
+		<div class="search container">
 			<input id="search" v-model="inputText" type="text" name="search" @keyup.enter="getSearch">
 			<button class="btn btn-primary" type="submit" @click="getSearch"> Cerca</button>
 		</div>
@@ -49,8 +49,6 @@ export default {
 			axios.get(`${this.query}${tv}`, { params: parameters })
 				.then((result) => {
 					this.merged.tv = result.data.results;
-					
-
 				})
 				.catch((error) => {
 					console.log(error);
@@ -68,5 +66,6 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../assets/scss/style.scss";
 
 </style>
