@@ -1,8 +1,8 @@
 <template>
 	<header>
 		<div class="search">
-			<input id="search" v-model="inputText" type="text" name="search" @keyup.enter="getApi">
-			<button class="btn btn-primary" type="submit" @click="getApi"> Cerca</button>
+			<input id="search" v-model="inputText" type="text" name="search" @keyup.enter="getSearch">
+			<button class="btn btn-primary" type="submit" @click="getSearch"> Cerca</button>
 		</div>
 	</header>
 </template>
@@ -15,27 +15,53 @@ export default {
 	data(){
 		return {
 			inputText: '',
-			inputFinal: '',
-			movies: [],
-			originalApi: "https://api.themoviedb.org/3/search/movie?api_key=4148b7accd7bd65952002b841924594e&query="
+			merged: {
+				movies: [],
+				tv: [],
+			},
+			query: 'https://api.themoviedb.org/3/search/',
+			api_key: '4148b7accd7bd65952002b841924594e',
 		}
 	},
+	created(){
+	},
 	methods: {
-		getApi() {
-			this.inputFinal = this.inputText.replace(/\s/g, "+");
-			console.log(this.inputFinal);
-			axios.get(this.originalApi, {
-				params: {
-					query: this.inputFinal
-				}
-			})
+		getFilms() {
+			const movie = 'movie';
+			const parameters = {
+				api_key: this.api_key,
+				query: this.inputText,
+			};
+			axios.get(`${this.query}${movie}`, { params: parameters })
 			.then((result) => {
-				this.movies = result.data.results;
-				this.$emit('doSearch', this.movies);
+				this.merged.movies = result.data.results;
 			})
 			.catch((error) => {
 				console.log(error);
 			})
+		},
+		getSerieTv(){
+			const tv = 'tv';
+			const parameters = {
+				api_key: this.api_key,
+				query: this.inputText,
+			};
+			axios.get(`${this.query}${tv}`, { params: parameters })
+				.then((result) => {
+					this.merged.tv = result.data.results;
+					
+
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		},
+		getSearch(){
+			this.getFilms();
+			this.getSerieTv();
+			setTimeout(() => {
+				this.$emit('doSearch', this.merged);
+			}, 500);	
 		}
 	}
 }

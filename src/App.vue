@@ -17,12 +17,16 @@ export default {
   },
   data(){
     return {
-      movieApi: '',
+      movieApi: {
+        movies: [],
+        tv: [],
+      },
     }
   },
   methods: {
     search(value) {
-      this.movieApi = value;
+      this.movieApi.movies = value.movies;
+      this.movieApi.tv = value.tv;
     },
   }
 };
@@ -30,4 +34,6 @@ export default {
 
 <style lang="scss">
 @import "~bootstrap/scss/bootstrap";
+@import '~mdb-ui-kit/css/mdb.min.css';
+
 </style>
