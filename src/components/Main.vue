@@ -10,6 +10,7 @@
 					:vote="movie.vote_average"
 					:poster="movie.poster_path"
 					:plot="movie.overview"
+					:id="movie.id"
 					:image="`https://image.tmdb.org/t/p/w342${movie.poster_path}`">
 					</Card>
 				</div>
@@ -24,6 +25,7 @@
 					:vote="serie.vote_average"
 					:poster="serie.poster_path"
 					:plot="serie.overview"
+					:id="serie.id"
 					:image="`https://image.tmdb.org/t/p/w342${serie.poster_path}`">
 					</Card>
 				</div>
