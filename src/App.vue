@@ -36,5 +36,7 @@ export default {
 @import "~bootstrap/scss/bootstrap";
 @import '~mdb-ui-kit/css/mdb.min.css';
 @import "./assets/scss/style.scss";
-
+body {
+  background-color: $bodyBackground;
+}
 </style>

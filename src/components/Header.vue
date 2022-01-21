@@ -1,8 +1,19 @@
 <template>
-	<header class="my-3">
-		<div class="search container">
-			<input id="search" v-model="inputText" type="text" name="search" @keyup.enter="getSearch">
-			<button class="btn btn-primary" type="submit" @click="getSearch"> Cerca</button>
+	<header class="">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 d-flex justify-content-between">
+					<div class="logo">
+						<img src="../assets/netflix-logo.png" alt="">
+					</div>
+					<div class="d-flex align-items-center">
+						<div class="search-container d-flex align-items-center">
+							<input placeholder="Inserisci titolo" id="search" v-model="inputText" type="text" name="search" @keyup.enter="getSearch">
+							<button class="my_btn btn btn-light ms-2" type="submit" @click="getSearch">Cerca</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</header>
 </template>
@@ -67,5 +78,27 @@ export default {
 
 <style lang="scss">
 @import "../assets/scss/style.scss";
-
+header {
+	background-color: $headerBackground;
+	.logo {
+		width: 20%;
+		img {
+		width: 100%;
+	}
+	}
+	.search-container {
+		height: 30%;
+	}
+	#search {
+		outline: none;
+		height: 100%;
+		font-size: 0.9rem;
+	}
+	.my_btn {
+		text-transform: none !important;
+		font-size: 0.8rem;
+		height: 100%;
+		padding: 0 1em;
+	}
+}
 </style>
