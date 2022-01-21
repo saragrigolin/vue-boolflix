@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @doSearch="search($event)"></Header>
-    <Main :inputHeader="movieApi"></Main>
+    <Main :movieApi="movieApi"></Main>
   </div>
 </template>
 
@@ -18,8 +18,8 @@ export default {
   data(){
     return {
       movieApi: {
-        movies: [],
-        tv: [],
+        movies: null,
+        tv: null,
       },
     }
   },

@@ -27,8 +27,8 @@ export default {
 		return {
 			inputText: '',
 			merged: {
-				movies: [],
-				tv: [],
+				movies: null,
+				tv: null,
 			},
 			query: 'https://api.themoviedb.org/3/search/',
 			api_key: '4148b7accd7bd65952002b841924594e',
