@@ -18,10 +18,12 @@
                         <p>{{plot}}</p>
                     </div>
                     <span class="mb-2">Language: <i :class="'flag flag-' + getFlags(lang)"></i></span>
-                    <span>Vote: {{getVote(vote)}}</span>
-                    <div class="d-flex justify-content-center">
-                        <i v-for="(star, index) in getVote(vote)" :key="index+'piene'" class="fas fa-star"></i>
-                        <i v-for="(star, index) in (5 - getVote(vote))" :key="index+'vuote'" class="far fa-star"></i>
+                    <div class="vote">
+                        <span class="d-block">Vote</span>
+                        <div class="d-flex justify-content-center">
+                            <i v-for="(star, index) in getVote(vote)" :key="index+'piene'" class="fas fa-star"></i>
+                            <i v-for="(star, index) in (5 - getVote(vote))" :key="index+'vuote'" class="far fa-star"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,6 +92,7 @@ export default {
             overflow: hidden;
             img {
             height: 100%;
+            width: 100%;
             }
         }
         .hover {
@@ -99,6 +102,7 @@ export default {
             opacity: 0.9;
             height: 100%;
             width: 100%;
+            cursor: pointer;
             .text {
                 overflow: auto;
                 height: 100%;
