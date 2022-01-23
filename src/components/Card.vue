@@ -14,16 +14,23 @@
                         <span>Titolo originale</span>
                         <span class="subtitle">{{original}}</span>
                     </div>
-                    <div class="plot">
+                    <div v-if="!clickMore" class="plot">
                         <p>{{plot}}</p>
+                    </div>
+                    <div v-if="clickMore" class="cast mt-2">
+                        <span>Cast:</span>
+                        <span v-for="(actor, index) in getCast(id)" :key="index">{{actor}}</span>
                     </div>
                     <span class="mb-2">Language: <i :class="'flag flag-' + getFlags(lang)"></i></span>
                     <div class="vote">
-                        <span class="d-block">Vote</span>
+                        <span class="d-block">Vote {{getVote(vote)}}</span>
                         <div class="d-flex justify-content-center">
-                            <i v-for="(star, index) in getVote(vote)" :key="index+'piene'" class="fas fa-star"></i>
-                            <i v-for="(star, index) in (5 - getVote(vote))" :key="index+'vuote'" class="far fa-star"></i>
+                            <i v-for="(star, index) in getVote(vote)" :key="index+'piene'" class="bi-star-fill"></i>
+                            <i v-for="(star, index) in (5 - getVote(vote))" :key="index+'vuote'" class="bi-star"></i>
                         </div>
+                    </div>
+                    <div class="cast-title mt-2" @click="clickMore = !clickMore">
+                        <span>Clicca qui per vedere più info</span>
                     </div>
                 </div>
             </div>
@@ -33,6 +40,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+
 export default {
     name: "Card",
     props: [
@@ -43,7 +53,17 @@ export default {
         'vote',
         'poster',
         'plot',
+        'id',
+        'type',
     ],
+    data(){
+        return {
+            cast: [],
+            api_key: '4148b7accd7bd65952002b841924594e',
+            query: 'https://api.themoviedb.org/3/',
+            clickMore: false,
+        }
+    },
     methods: {
         getFlags(lang){
             switch (lang){
@@ -66,6 +86,28 @@ export default {
         getVote(vote){
             let finalVote = parseFloat(vote) / 2;
             return Math.round(finalVote);
+        },
+        getCast(id){
+			const parameters = {
+				api_key: this.api_key,
+			};
+            axios.get(`${this.query}${this.type}/${id}/credits`, { params: parameters })
+            .then((result) => {
+                const castList = result.data.cast;
+                this.cast = [];
+                if (castList.length > 0){
+                    for(let i = 0; i < 5; i++) {
+                    this.cast.push(castList[i].name);
+                    }
+                } else {
+                    console.log('nessun cast');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            
+            return this.cast;
         }
     }
 }
@@ -74,6 +116,8 @@ export default {
 
 <style lang="scss">
 @import "../assets/scss/style.scss";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
+
 .col {
     padding: 0.5em 1em;
     .item-card {
@@ -107,7 +151,11 @@ export default {
                 padding: 0.5em;
                 opacity: 1;
                 flex-direction: column;
-                .plot {
+                .cast-title {
+                    color: #54d1ff;
+                    cursor: pointer;
+                }
+                .plot, .cast {
                     font-size: 0.8em;
                 }
                 span {

@@ -11,6 +11,7 @@
 					:poster="movie.poster_path"
 					:plot="movie.overview"
 					:id="movie.id"
+					:type="`movie`"
 					:image="`https://image.tmdb.org/t/p/w342${movie.poster_path}`">
 					</Card>
 				</div>
@@ -26,6 +27,7 @@
 					:poster="serie.poster_path"
 					:plot="serie.overview"
 					:id="serie.id"
+					:type="`tv`"
 					:image="`https://image.tmdb.org/t/p/w342${serie.poster_path}`">
 					</Card>
 				</div>
